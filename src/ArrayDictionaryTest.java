@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ArrayDictionaryTest {
@@ -48,15 +51,64 @@ public class ArrayDictionaryTest {
 
     @Test
     public void contains() {
-        ArrayDictionary dict = new ArrayDictionary();
-        int[] keys = {-1, 0, 1};
-        boolean test = true;
-        for(int i = 0; i < keys.length; i++){
-            if(!dict.contains(keys[i])) {
-                test = false;
-                break;
-            }
+        List<Boolean> tested = new ArrayList<>();
+        boolean[] plugIn = {false, false, false, false, true, true, true, false, false, false, true, true, true, false, false};
+        List<Boolean> answers = new ArrayList<>();
+        for(int i = 0; i < plugIn.length; i++) {
+            answers.add(plugIn[i]);
         }
-        assertTrue(test);
+
+        // Case 1
+        ArrayDictionary emptyDict = new ArrayDictionary();
+        int[] emptyKeys = {-1, 0, 1};
+        for(int i = 0; i < emptyKeys.length; i++){
+            tested.add(emptyDict.contains(emptyKeys[i]));
+        }
+
+        // Case 2
+        ArrayDictionary dict1 = new ArrayDictionary(1);
+        int[] keys1 = {2, 0};
+        dict1.add(0, 103);
+        for(int i = 0; i < keys1.length; i++){
+            tested.add(dict1.contains(keys1[i]));
+        }
+
+        // Case 3
+        ArrayDictionary dict2 = new ArrayDictionary(2);
+        int[] keys2 = {0, 1, 2, 3};
+        dict2.add(0, 103);
+        dict2.add(1, 105);
+        for(int i = 0; i < keys2.length; i++){
+            tested.add(dict2.contains(keys2[i]));
+        }
+
+        // Case 4
+        ArrayDictionary dict3 = new ArrayDictionary(3);
+        dict3.add(0, 103);
+        dict3.add(1, 105);
+        ArrayDictionary dict4 = new ArrayDictionary(3);
+        dict4.add(0, 103);
+        dict4.add(1, 105);
+        dict4.add(2, 206);
+        int[] keys3 = {3, 1};
+        for(int i = 0; i < keys3.length; i++){
+            tested.add(dict3.contains(keys3[i]));
+        }
+
+        // Case 5
+        ArrayDictionary dict5 = new ArrayDictionary(3);
+        dict5.add(0, 103);
+        dict5.add(1, 105);
+        dict5.add(2, 206);
+        dict5.add(4, 407);
+        int[] keys5 = {1, 4, 7, 8};
+        for(int i = 0; i < keys5.length; i++){
+            tested.add(dict5.contains(keys5[i]));
+        }
+
+        // Comparing to check answers
+        for(int i = 0; i < tested.size(); i++) {
+            assertTrue(tested.get(i), answers.get(i));
+        }
     }
 }
