@@ -58,6 +58,18 @@ public class ArrayDictionary implements Dictionary {
     @Override
     public boolean remove(int key) {
         // homework
+        if(capacity > 0) {
+            int hashedKey = hashFunction(key);
+            KVEntry ptr = entries[hashedKey];
+            while (ptr != null) {
+                if (ptr.key == key) {
+                    ptr.key = ptr.next.key;
+                    count--;
+                    return true;
+                }
+                ptr = ptr.next;
+            }
+        }
         return false;
     }
 
@@ -66,6 +78,14 @@ public class ArrayDictionary implements Dictionary {
     @Override
     public Integer get(int key) {
         // homework
+        int hashedKey = hashFunction(key);
+        KVEntry ptr = entries[hashedKey];
+        while(ptr != null){
+            if(ptr.key == key) {
+                return ptr.value;
+            }
+            ptr = ptr.next;
+        }
         return null;
     }
 
