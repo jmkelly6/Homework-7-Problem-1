@@ -58,10 +58,10 @@ public class ArrayDictionary implements Dictionary {
     @Override
     public boolean remove(int key) {
         // homework
-        if(capacity > 0) {
+        if(capacity > 0) { //&& entries != null) {
             int hashedKey = hashFunction(key);
             KVEntry ptr = entries[hashedKey];
-            while (ptr != null) {
+            while (ptr.next != null) {
                 if (ptr.key == key) {
                     ptr.key = ptr.next.key;
                     count--;
@@ -77,21 +77,21 @@ public class ArrayDictionary implements Dictionary {
     // Return null if no entry exists with the given key
     @Override
     public Integer get(int key) {
-        // homework
-        int hashedKey = hashFunction(key);
-        KVEntry ptr = entries[hashedKey];
-        while(ptr != null){
-            if(ptr.key == key) {
-                return ptr.value;
-            }
-            ptr = ptr.next;
-        }
+        // NOT IMPLEMENTED
         return null;
     }
 
     @Override
     public boolean contains(int key) {
-        // not implemented
+        // homework
+        int hashedKey = hashFunction(key);
+        KVEntry ptr = entries[hashedKey];
+        while (ptr != null) {
+            if (ptr.key == key) {
+                return true;
+            }
+            ptr = ptr.next;
+        }
         return false;
     }
 

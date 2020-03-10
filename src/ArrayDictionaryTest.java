@@ -20,46 +20,54 @@ public class ArrayDictionaryTest {
     public void remove() {
         int[] checkKeysNoCol = {1, 5};
         int[] checkKeysCol = {2, 3, 7};
-        boolean test = true;
+        boolean [] answers = new boolean[8];
+        answers[1] = true;
+        answers[2] = true;
+        answers[6] = true;
+        answers[7] = true;
+        List<Boolean> test = new ArrayList<>();
 
-        ArrayDictionary empty = new ArrayDictionary();
+        ArrayDictionary empty = new ArrayDictionary(0);
         ArrayDictionary noCol = new ArrayDictionary(2);
-        noCol.add(1, 7);
-        noCol.add(2, 4);
-        ArrayDictionary col = new ArrayDictionary(3);
+        noCol.add(0, 7);
+        noCol.add(1, 4);
+        ArrayDictionary col = new ArrayDictionary(4);
         col.add(2, 80);
         col.add(3, 60);
         col.add(3, 68);
+        col.add(5, 22);
 
-        test = empty.remove(0);
+        test.add(empty.remove(1));
 
-        for(int i = 0; i < checkKeysNoCol.length; i++) {
-            test = (test || noCol.remove(checkKeysNoCol[i]));
+        //for(int i = 0; i < checkKeysNoCol.length; i++) {
+        for (int value : checkKeysNoCol) {
+            test.add(noCol.remove(value));
         }
 
         for(int j = 0; j < checkKeysCol.length; j++) {
-            test = (test || col.remove(checkKeysCol[j]));
+            test.add(col.remove(checkKeysCol[j]));
+            System.out.println("Testing with collision: " + test.get(j));
         }
-        assertTrue(test);
-    }
 
-    @Test
-    public void get() {
-
-        assertTrue(false);  // place holder
+        // Checking answers
+        for(int i = 0; i < test.size(); i++) {
+            assertTrue(String.valueOf(test.get(i)), answers[i]);
+        }
     }
 
     @Test
     public void contains() {
         List<Boolean> tested = new ArrayList<>();
-        boolean[] plugIn = {false, false, false, false, true, true, true, false, false, false, true, true, true, false, false};
-        List<Boolean> answers = new ArrayList<>();
-        for(int i = 0; i < plugIn.length; i++) {
-            answers.add(plugIn[i]);
-        }
+        boolean[] plugIn = new boolean[15];     //{false, false, false, false, true, true, true, false, false, false, true, true, true, false, false};
+        plugIn[4] = true;
+        plugIn[5] = true;
+        plugIn[6] = true;
+        plugIn[10] = true;
+        plugIn[11] = true;
+        plugIn[12] = true;
 
         // Case 1
-        ArrayDictionary emptyDict = new ArrayDictionary();
+        ArrayDictionary emptyDict = new ArrayDictionary(0);
         int[] emptyKeys = {-1, 0, 1};
         for(int i = 0; i < emptyKeys.length; i++){
             tested.add(emptyDict.contains(emptyKeys[i]));
@@ -108,7 +116,7 @@ public class ArrayDictionaryTest {
 
         // Comparing to check answers
         for(int i = 0; i < tested.size(); i++) {
-            assertTrue(tested.get(i), answers.get(i));
+            assertTrue(String.valueOf(tested.get(i).booleanValue()), plugIn[i]);
         }
     }
 }
