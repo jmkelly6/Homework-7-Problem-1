@@ -54,9 +54,9 @@ public class ArrayDictionaryTest {
         // Case 1
         ArrayDictionary emptyDict = new ArrayDictionary(0);
         int[] emptyKeys = {-1, 0, 1};
-        boolean[] emptyAnswers = new boolean [3];
+        //boolean[] emptyAnswers = new boolean [3];
         for(int i = 0; i < emptyKeys.length; i++){
-            assertTrue(String.valueOf(emptyDict.contains(emptyKeys[i])), emptyAnswers[i]);
+            assertEquals(emptyDict.contains(emptyKeys[i]), false);
         }
 
         // Case 2
@@ -66,7 +66,7 @@ public class ArrayDictionaryTest {
         boolean[] case1Answers = new boolean[2];
         case1Answers[1] = true;
         for(int i = 0; i < keys1.length; i++){
-            assertTrue(String.valueOf(dict1.contains(keys1[i])), case1Answers[i]);
+            assertEquals(dict1.contains(keys1[i]), case1Answers[i]);
         }
 
         // Case 3
@@ -78,7 +78,7 @@ public class ArrayDictionaryTest {
         case2Answers[0] = true;
         case2Answers[1] = true;
         for(int i = 0; i < keys2.length; i++){
-            assertTrue(String.valueOf(dict2.contains(keys2[i])), case2Answers[i]);
+            assertEquals(dict2.contains(keys2[i]), case2Answers[i]);
         }
 
         // Case 4
@@ -90,8 +90,8 @@ public class ArrayDictionaryTest {
         dict4.add(1, 105);
         dict4.add(2, 206);
         int[] keys3 = {3, 1};
-        assertTrue(String.valueOf(dict3.contains(3)), false);
-        assertTrue(String.valueOf(dict4.contains(1)), true);
+        assertEquals(dict3.contains(3), false);
+        assertEquals(dict4.contains(1), true);
 
         // Case 5
         ArrayDictionary dict5 = new ArrayDictionary(3);
@@ -104,7 +104,7 @@ public class ArrayDictionaryTest {
         case5Answers[0] = true;
         case5Answers[1] = true;
         for(int i = 0; i < keys5.length; i++){
-            assertTrue(String.valueOf(dict5.contains(keys5[i])), case5Answers[i]);
+            assertEquals(dict5.contains(keys5[i]), case5Answers[i]);
         }
     }
 }
